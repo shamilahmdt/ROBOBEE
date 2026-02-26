@@ -610,7 +610,7 @@ ${form.message || "No message"}
           <li><a href="/about">About</a></li>
           <li><a href="/contact">Contact</a></li>
         </ul>
-        {/* <button className="nav-cta">Enroll Now</button> */}
+        <a href="/contact#enroll-form"><button className="nav-cta">Enroll Now</button></a>
       </nav>
 
       <section className="contact-hero">
@@ -682,7 +682,7 @@ ${form.message || "No message"}
         </div>
 
         {/* RIGHT: Form */}
-        <div className="form-panel">
+        <div id="enroll-form" className="form-panel">
           <div className="form-title">Enroll Your <span>Child</span></div>
           <p className="form-sub">Fill out the form and we'll get back to you within 24 hours.</p>
 

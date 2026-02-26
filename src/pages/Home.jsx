@@ -678,7 +678,7 @@ export default function Home() {
           <li><a href="/about">About</a></li>
           <li><a href="/contact">Contact</a></li>
         </ul>
-        {/* <button className="nav-cta">Enroll Now</button> */}
+        <a href="/contact#enroll-form"><button className="nav-cta">Enroll Now</button></a>
       </nav>
 
       {/* HERO */}
