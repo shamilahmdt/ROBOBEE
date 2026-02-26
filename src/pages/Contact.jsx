@@ -473,70 +473,84 @@ const styles = `
 
   /* FOOTER */
   .footer {
-    background: var(--black);
-    color: var(--white);
-    padding: 48px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 32px;
-  }
+          background: var(--black);
+          color: var(--white);
+          padding: 48px;
+          display: grid;
+          grid-template-columns: 1fr 1fr 1fr;
+          gap: 32px;
+          align-items: start;
+        }
 
-  .footer-brand {
-    font-family: 'Black Han Sans', sans-serif;
-    font-size: 32px;
-    color: var(--gold);
-    letter-spacing: 2px;
-    margin-bottom: 12px;
-  }
+        .footer-brand {
+          font-family: 'Black Han Sans', sans-serif;
+          font-size: 32px;
+          color: var(--gold);
+          letter-spacing: 2px;
+          margin-bottom: 12px;
+        }
 
-  .footer-tagline {
-    font-family: 'Nunito', sans-serif;
-    font-size: 14px;
-    color: #888;
-    line-height: 1.6;
-  }
+        .footer-tagline {
+          font-family: 'Nunito', sans-serif;
+          font-size: 14px;
+          color: #888;
+          line-height: 1.6;
+        }
 
-  .footer-heading {
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 700;
-    font-size: 13px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 20px;
-  }
+        .footer-heading {
+          font-family: 'Rajdhani', sans-serif;
+          font-weight: 700;
+          font-size: 13px;
+          letter-spacing: 3px;
+          text-transform: uppercase;
+          color: var(--gold);
+          margin-bottom: 20px;
+        }
 
-  .footer-contact-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 14px;
-    font-family: 'Nunito', sans-serif;
-    font-size: 15px;
-    color: #ccc;
-  }
+        .footer-contact-item {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          margin-bottom: 14px;
+          font-family: 'Nunito', sans-serif;
+          font-size: 15px;
+          color: #ccc;
+        }
 
-  .footer-contact-icon {
-    width: 32px; height: 32px;
-    background: rgba(255,215,0,0.15);
-    border: 1px solid rgba(255,215,0,0.3);
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
+        .footer-contact-icon {
+          width: 32px;
+          height: 32px;
+          background: rgba(255, 215, 0, 0.15);
+          border: 1px solid rgba(255, 215, 0, 0.3);
+          border-radius: 6px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+        }
 
-  .footer-bottom {
-    grid-column: 1 / -1;
-    border-top: 1px solid #222;
-    padding-top: 24px;
-    display: flex;
-    justify-content: space-between;
-    font-family: 'Nunito', sans-serif;
-    font-size: 13px;
-    color: #555;
-  }
+        .footer-link {
+          text-decoration: none; /* remove underline */
+          color: inherit;        /* inherit parent text color */
+          transition: color 0.2s, transform 0.2s; /* smooth hover */
+        }
+
+        .footer-link:hover {
+          color: var(--gold);
+          transform: scale(1.05);
+        }
+
+        .footer-bottom {
+          grid-column: 1 / -1;
+          border-top: 1px solid #222;
+          padding-top: 24px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-family: 'Nunito', sans-serif;
+          font-size: 13px;
+          color: #555;
+        }
 
   @media (max-width: 768px) {
     .nav { padding: 14px 20px; }
@@ -558,12 +572,32 @@ export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({ name: "", phone: "", email: "", age: "", message: "" });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 5000);
-    setForm({ name: "", phone: "", email: "", age: "", message: "" });
-  };
+const handleSubmit = (e) => {
+  e.preventDefault();
+
+  const phoneNumber = "919746347070"; // Without + symbol
+
+  const message = `
+📌 New Enrollment - Robobee
+
+👤 Parent Name: ${form.name}
+📞 Phone: ${form.phone}
+📧 Email: ${form.email || "Not provided"}
+🎂 Child Age: ${form.age}
+📚 Interested In: ${activeChip || "Not selected"}
+
+📝 Message:
+${form.message || "No message"}
+  `;
+
+  const encodedMessage = encodeURIComponent(message);
+
+  const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+
+  window.open(whatsappURL, "_blank");
+
+  setSubmitted(true);
+};
 
   return (
     <>
@@ -576,7 +610,7 @@ export default function Contact() {
           <li><a href="/about">About</a></li>
           <li><a href="/contact">Contact</a></li>
         </ul>
-        <button className="nav-cta">Enroll Now</button>
+        {/* <button className="nav-cta">Enroll Now</button> */}
       </nav>
 
       <section className="contact-hero">
@@ -593,18 +627,27 @@ export default function Contact() {
           <div className="info-card">
             <div className="info-icon">📞</div>
             <div className="info-content">
-              <div className="info-label">Call Us</div>
-              <div className="info-value">9746347070</div>
-              <div className="info-desc">Mon–Sat, 9 AM – 6 PM</div>
+              <a href="tel:9746347070" className="footer-link">
+                <div className="info-label">Call Us</div>
+                <div className="info-value">9746347070</div>
+                <div className="info-desc">Mon–Sat, 9 AM – 6 PM</div>
+              </a>
             </div>
           </div>
 
           <div className="info-card">
             <div className="info-icon">📍</div>
             <div className="info-content">
-              <div className="info-label">Visit Us</div>
-              <div className="info-value">Kottakkal</div>
-              <div className="info-desc">Collegepadi, Malappuram District, Kerala</div>
+              <a
+                href="https://www.google.com/maps/search/?api=1&query=Kottakkal+Collegepadi"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="footer-link"
+              >          
+                <div className="info-label">Visit Us</div>
+                <div className="info-value">Kottakkal</div>
+                <div className="info-desc">Collegepadi, Malappuram District, Kerala</div>
+              </a>
             </div>
           </div>
 
@@ -622,10 +665,19 @@ export default function Contact() {
               <div className="social-ig-icon">📸</div>
               <div>
                 <div className="social-label">Follow Us</div>
-                <div className="social-handle">@ROBO_BEE</div>
+                <div className="social-handle">@ROBO_BEE
+                </div>
               </div>
             </div>
-            <button className="social-follow-btn">Follow</button>
+            <button className="social-follow-btn">
+                <a  href="https://www.instagram.com/ro_bobee?igsh=MWIxZGxwMmhubjRwMw=="
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="footer-link"
+                  >
+                    FOLLOW
+                </a>
+            </button>
           </div>
         </div>
 
@@ -736,18 +788,56 @@ export default function Contact() {
           <div className="footer-brand">ROBOBEE</div>
           <p className="footer-tagline">Empowering the next generation of engineers, one circuit at a time.</p>
         </div>
-        <div>
-          <div className="footer-heading">Contact Us</div>
-          <div className="footer-contact-item"><div className="footer-contact-icon">📞</div>9746347070</div>
-          <div className="footer-contact-item"><div className="footer-contact-icon">📍</div>Kottakkal, Collegepadi</div>
-          <div className="footer-contact-item"><div className="footer-contact-icon">📸</div>@ROBO_BEE</div>
-        </div>
-        <div>
-          <div className="footer-heading">Navigate</div>
-          {["Home", "About Us", "Courses", "Contact"].map(link => (
-            <div className="footer-contact-item" key={link}><div className="footer-contact-icon">→</div>{link}</div>
-          ))}
-        </div>
+    <div>
+      <div className="footer-heading">Contact Us</div>
+
+      <div className="footer-contact-item">
+        <div className="footer-contact-icon">📞</div>
+        <a href="tel:9746347070" className="footer-link">
+          9746347070
+        </a>
+      </div>
+
+      <div className="footer-contact-item">
+        <div className="footer-contact-icon">📍</div>
+        <a
+          href="https://www.google.com/maps/search/?api=1&query=Kottakkal+Collegepadi"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="footer-link"
+        >
+          Kottakkal, Collegepadi
+        </a>
+      </div>
+
+      <div className="footer-contact-item">
+      <div div className="footer-contact-icon">📸</div>
+        <a
+          href="https://www.instagram.com/ro_bobee?igsh=MWIxZGxwMmhubjRwMw=="
+          target="_blank"
+          rel="noopener noreferrer"
+          className="footer-link"
+        >
+          @ROBO_BEE
+        </a>
+      </div>
+    </div>
+<div>
+  <div className="footer-heading">Quick Links</div>
+  {[
+    { name: "Home", href: "/" },
+    { name: "About Us", href: "/about" },
+    { name: "Courses", href: "/" },
+    { name: "Contact", href: "/contact" }
+  ].map(link => (
+    <div className="footer-contact-item" key={link.name}>
+      <div className="footer-contact-icon">→</div>
+      <a href={link.href} className="footer-link">
+        {link.name}
+      </a>
+    </div>
+  ))}
+</div>
         <div className="footer-bottom">
           <span>© 2025 Robobee. All rights reserved.</span>
           <span>Made with ⚡ for young engineers</span>

@@ -436,73 +436,85 @@ const styles = `
   }
 
   /* FOOTER */
-  .footer {
-    background: var(--black);
-    color: var(--white);
-    padding: 48px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 32px;
-    align-items: start;
-  }
+.footer {
+          background: var(--black);
+          color: var(--white);
+          padding: 48px;
+          display: grid;
+          grid-template-columns: 1fr 1fr 1fr;
+          gap: 32px;
+          align-items: start;
+        }
 
-  .footer-brand {
-    font-family: 'Black Han Sans', sans-serif;
-    font-size: 32px;
-    color: var(--gold);
-    letter-spacing: 2px;
-    margin-bottom: 12px;
-  }
+        .footer-brand {
+          font-family: 'Black Han Sans', sans-serif;
+          font-size: 32px;
+          color: var(--gold);
+          letter-spacing: 2px;
+          margin-bottom: 12px;
+        }
 
-  .footer-tagline {
-    font-family: 'Nunito', sans-serif;
-    font-size: 14px;
-    color: #888;
-    line-height: 1.6;
-  }
+        .footer-tagline {
+          font-family: 'Nunito', sans-serif;
+          font-size: 14px;
+          color: #888;
+          line-height: 1.6;
+        }
 
-  .footer-heading {
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 700;
-    font-size: 13px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 20px;
-  }
+        .footer-heading {
+          font-family: 'Rajdhani', sans-serif;
+          font-weight: 700;
+          font-size: 13px;
+          letter-spacing: 3px;
+          text-transform: uppercase;
+          color: var(--gold);
+          margin-bottom: 20px;
+        }
 
-  .footer-contact-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 14px;
-    font-family: 'Nunito', sans-serif;
-    font-size: 15px;
-    color: #ccc;
-  }
+        .footer-contact-item {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          margin-bottom: 14px;
+          font-family: 'Nunito', sans-serif;
+          font-size: 15px;
+          color: #ccc;
+        }
 
-  .footer-contact-icon {
-    width: 32px; height: 32px;
-    background: rgba(255,215,0,0.15);
-    border: 1px solid rgba(255,215,0,0.3);
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
+        .footer-contact-icon {
+          width: 32px;
+          height: 32px;
+          background: rgba(255, 215, 0, 0.15);
+          border: 1px solid rgba(255, 215, 0, 0.3);
+          border-radius: 6px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+        }
 
-  .footer-bottom {
-    grid-column: 1 / -1;
-    border-top: 1px solid #222;
-    padding-top: 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-family: 'Nunito', sans-serif;
-    font-size: 13px;
-    color: #555;
-  }
+        .footer-link {
+          text-decoration: none; /* remove underline */
+          color: inherit;        /* inherit parent text color */
+          transition: color 0.2s, transform 0.2s; /* smooth hover */
+        }
+
+        .footer-link:hover {
+          color: var(--gold);
+          transform: scale(1.05);
+        }
+
+        .footer-bottom {
+          grid-column: 1 / -1;
+          border-top: 1px solid #222;
+          padding-top: 24px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-family: 'Nunito', sans-serif;
+          font-size: 13px;
+          color: #555;
+        }
 
   @media (max-width: 768px) {
     .nav { padding: 14px 20px; }
@@ -647,7 +659,7 @@ const courseItems = [
 ];
 
 const stats = [
-  { number: "200", plus: true, label: "Students Enrolled" },
+  { number: "10", plus: true, label: "Students Enrolled" },
   { number: "15", plus: true, label: "Live Projects" },
   { number: "5", plus: false, label: "Expert Trainers" },
   { number: "100", percent: true, label: "Hands-on Learning" },
@@ -666,7 +678,7 @@ export default function Home() {
           <li><a href="/about">About</a></li>
           <li><a href="/contact">Contact</a></li>
         </ul>
-        <button className="nav-cta">Enroll Now</button>
+        {/* <button className="nav-cta">Enroll Now</button> */}
       </nav>
 
       {/* HERO */}
@@ -737,30 +749,56 @@ export default function Home() {
           <div className="footer-brand">ROBOBEE</div>
           <p className="footer-tagline">Empowering the next generation of engineers, one circuit at a time.</p>
         </div>
-        <div>
-          <div className="footer-heading">Contact Us</div>
-          <div className="footer-contact-item">
-            <div className="footer-contact-icon">📞</div>
-            9746347070
+    <div>
+      <div className="footer-heading">Contact Us</div>
+
+      <div className="footer-contact-item">
+        <div className="footer-contact-icon">📞</div>
+        <a href="tel:9746347070" className="footer-link">
+          9746347070
+        </a>
+      </div>
+
+      <div className="footer-contact-item">
+        <div className="footer-contact-icon">📍</div>
+        <a
+          href="https://www.google.com/maps/search/?api=1&query=Kottakkal+Collegepadi"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="footer-link"
+        >
+          Kottakkal, Collegepadi
+        </a>
+      </div>
+
+      <div className="footer-contact-item">
+        <div className="footer-contact-icon">📸</div>
+        <a
+          href="https://www.instagram.com/ro_bobee?igsh=MWIxZGxwMmhubjRwMw=="
+          target="_blank"
+          rel="noopener noreferrer"
+          className="footer-link"
+        >
+          @ROBO_BEE
+        </a>
+      </div>
+    </div>
+      <div>
+        <div className="footer-heading">Quick Links</div>
+        {[
+          { name: "Home", href: "/" },
+          { name: "About Us", href: "/about" },
+          { name: "Courses", href: "" },
+          { name: "Contact", href: "/contact" }
+        ].map(link => (
+          <div className="footer-contact-item" key={link.name}>
+            <div className="footer-contact-icon">→</div>
+            <a href={link.href} className="footer-link">
+              {link.name}
+            </a>
           </div>
-          <div className="footer-contact-item">
-            <div className="footer-contact-icon">📍</div>
-            Kottakkal, Collegepadi
-          </div>
-          <div className="footer-contact-item">
-            <div className="footer-contact-icon">📸</div>
-            @ROBO_BEE
-          </div>
-        </div>
-        <div>
-          <div className="footer-heading">Quick Links</div>
-          {["Home", "About Us", "Courses", "Contact"].map(link => (
-            <div className="footer-contact-item" key={link}>
-              <div className="footer-contact-icon">→</div>
-              {link}
-            </div>
-          ))}
-        </div>
+        ))}
+      </div>
         <div className="footer-bottom">
           <span>© 2025 Robobee. All rights reserved.</span>
           <span>Made with ⚡ for young engineers</span>
